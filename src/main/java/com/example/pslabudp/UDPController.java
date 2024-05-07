@@ -106,15 +106,15 @@ public class UDPController implements Initializable {
             try {
                 broadcastSender.send(getMessage());
             } catch (IOException e) {
-                sendAlert(ERROR, "Server connection lost");
-                disconnect();
+                sendAlert(ERROR, "Message sending failed");
+//                disconnect();
             }
         } else {
             try {
                 multicastSender.send(getMessage());
             } catch (IOException e) {
-                sendAlert(ERROR, "Server connection lost");
-                disconnect();
+                sendAlert(ERROR, "Message sending failed");
+//                disconnect();
             }
         }
 //        try {
@@ -136,6 +136,10 @@ public class UDPController implements Initializable {
         } else {
             return null;
         }
+    }
+
+    public boolean isBroadcastMode() {
+        return broadcastMode.isSelected();
     }
 
     public Integer getPort() {

@@ -21,6 +21,7 @@ public class MulticastReceiver extends Thread{
         socket = new MulticastSocket(port);
         group = InetAddress.getByName(ip);
         socket.joinGroup(group);
+        socket.setReuseAddress(true);
 
 
         Thread t = new Thread(this);
@@ -28,7 +29,7 @@ public class MulticastReceiver extends Thread{
     }
 
     public void disconnect() throws IOException {
-        socket.leaveGroup(group);
+        if (!c.isBroadcastMode()) socket.leaveGroup(group);
         socket.close();
     }
 
